@@ -1,0 +1,138 @@
+.home-container .container {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.home-container .content {
+    display: flex;
+    align-items: center;
+}
+
+.home-container .content h1 {
+    font-size: 2.5rem;
+    margin-top: -8rem;
+    flex: 1;
+}
+
+.home-container .content img {
+    margin-top: -4rem;
+    margin-left: 20px;
+    height: calc(35rem - 10%);
+    width: 35rem;
+    clip-path: inset(10% 0 10% 0);
+}
+
+.home-container button {
+    cursor: pointer;
+    margin-top: -14rem;
+    margin-left: -36rem;
+    width: 18rem;
+    height: 3.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: .75rem;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background: purple;
+}
+
+.home-container button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.home-container h2 {
+    font-size: 1.75rem;
+}
+
+.home-container p {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.home-container .promo {
+    text-align: center;
+    width: 90%;
+    height: 50vh;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    padding: 1rem;
+}
+
+.home-container .card-grid {
+    margin: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.home-container .card {
+    padding: 20px;
+    border-radius: 8px 8px 8px 0;
+    transition: box-shadow 0.3s ease;
+}
+
+.home-container .card:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.home-container .card:nth-child(even) {
+    background-color: #fff8ed;
+}
+
+.home-container .card:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+
+.home-container .second-grid {
+    text-align: center;
+    width: 90%;
+    height: 50vh;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    padding: 1rem;
+}
+
+.home-container .second-grid h2 {
+    margin-bottom: 20px;
+}
+
+.home-container .card-grid.tall-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.home-container .card-grid.tall-cards .card p {
+    margin: 0;
+}
+
+.home-container .card-grid.tall-cards .card {
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    transition: box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.home-container .card-grid.tall-cards .card:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.home-container .card-grid.tall-cards .card:hover svg {
+    color: green;
+}
