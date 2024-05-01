@@ -1,0 +1,33 @@
+.video-recorder__Wrapper-sc-7k20rv-0.WroCl {
+    height: 25rem;
+    margin-left: 24rem;
+    margin-top: 3rem;
+    border: .15rem solid violet;
+    border-radius: 1rem;
+    width: 36rem;
+}
+
+
+.question {
+    margin-top: -28rem;
+    margin-bottom: 6rem;
+    margin-left: 9rem;
+}
+
+
+#btn{
+    align-self: center;
+    cursor: pointer;
+    width: 18rem;
+    height: 3.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: .75rem;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background: purple;
+    margin-bottom: 1rem;
+    margin-left:18rem;
+}
