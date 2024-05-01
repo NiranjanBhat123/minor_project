@@ -1,7 +1,16 @@
 import React from 'react';
 import '../css/Interview.css';
+import { useNavigate } from 'react-router-dom';
 
 const Interview = () => {
+
+
+  const navigate = useNavigate();
+
+  const handleTakeInterview = (cardName) => {
+    navigate('/record', { state: { cardName: cardName } });
+  };
+
   return (
     <div className="interview-container">
       <div className="card">
@@ -16,7 +25,7 @@ const Interview = () => {
           <li>Deadlocks</li>
           <li>Indexes and Views</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('dbms')}>Take Interview</button>
       </div>
 
       <div className="card">
@@ -30,7 +39,7 @@ const Interview = () => {
           <li>Networking</li>
           <li>Deadlocks and recovery</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('os')}>Take Interview</button>
       </div>
       <div className="card">
         <h2>Computer Networks</h2>
@@ -43,7 +52,7 @@ const Interview = () => {
           <li>Routing Algorithms</li>
           <li>Network Security</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('cn')}>Take Interview</button>
       </div>
 
       <div className="card">
@@ -57,7 +66,7 @@ const Interview = () => {
           <li>Dynamic Programming</li>
           <li>Algorithm Analysis</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('dsa')}>Take Interview</button>
       </div>
 
       <div className="card">
@@ -71,7 +80,7 @@ const Interview = () => {
           <li>Database Management</li>
           <li>Web Security</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('web')}>Take Interview</button>
       </div>
 
       <div className="card">
@@ -85,7 +94,7 @@ const Interview = () => {
           <li>Design Patterns</li>
           <li>Object-oriented Analysis and Design</li>
         </ul>
-        <button className="take-interview-button">Take Interview</button>
+        <button className="take-interview-button" onClick={() => handleTakeInterview('oops')}>Take Interview</button>
       </div>
 
     </div>
