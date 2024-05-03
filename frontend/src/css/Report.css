@@ -1,0 +1,55 @@
+.report-container {
+    width:90%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #eee;
+  }
+  
+  .report-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #8a2be2; /* violet color */
+  }
+  
+  .report-data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .report-section {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  .rating-section {
+    position: relative;
+  }
+  
+  .rating-graph {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+  }
+  
+  .rating-graph span {
+    color: #8a2be2; /* violet color */
+  }
+  
+  .feedback-section h3,
+  .strengths-section h3,
+  .model-answer-section h3 {
+    color: #8a2be2; /* violet color */
+  }
+  

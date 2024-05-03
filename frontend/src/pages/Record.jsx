@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import VideoRecorder from 'react-video-recorder';
+import {ReactTyped }from "react-typed";
+import { ClipLoader } from 'react-spinners';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/Record.css';
 import { useRecordWebcam } from 'react-record-webcam';
+import axios from 'axios';
 
 const OPTIONS = {
   filename: 'test-filename',
@@ -32,9 +35,24 @@ const RecordView = () => {
 
 export default function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isVideoRecorded, setIsVideoRecorded] = useState(false);
+  const [recordedBlob, setRecordedBlob] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [question, setQuestion] = useState('');
+  const [question_id, setquestion_id] = useState('')
+
+
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   let { cardName } = location.state;
+  useEffect(() => {
+    fetchQuestion();
+  }, [cardName]);
   let subject = '';
   if (cardName === 'dbms') {
     subject = 'Database management system';
@@ -52,13 +70,58 @@ export default function App() {
 
   const recordWebcam = useRecordWebcam(OPTIONS);
 
-  const handleButtonClick = () => {
+  const fetchQuestion = async () => {
+    try {
+      const url = `http://localhost:8000/my_app/api/get-random-question/${cardName}/`;
+      const response = await axios.get(url);
+      
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch question from server');
+      }
+      
+      setQuestion(response.data.question);
+      setquestion_id(response.data.id);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  
+
+
+  const handleButtonClick = async () => {
     if (!isVideoRecorded) {
       toast.error('Record a video before submitting');
     } else {
-      toast.success('Video submitted successfully!');
+      try {
+        if (!recordedBlob) {
+          throw new Error('No recorded video found');
+        }
+        setSubmitting(true);
+        console.log("video is present !")
+
+        const formData = new FormData();
+
+
+        formData.append('video', recordedBlob);
+        formData.append('question_id',question_id);
+        console.log(question_id);
+        const response = await fetch('http://127.0.0.1:8000/my_app/', {
+          method: 'POST',
+          body: formData,
+        });
+        if (response.ok) {
+          navigate('/report', { state: { response: await response.json() } });
+        } else {
+          throw new Error('Internal server error');
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
     }
   };
+
+
+
 
   return (
     <>
@@ -74,14 +137,22 @@ export default function App() {
           timeLimit="60000"
           onRecordingComplete={(videoBlob) => {
             setIsVideoRecorded(true);
+            setRecordedBlob(videoBlob);
           }}
         />
       </div>
       <div className="question">
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, id!</h3>
+        <h3><ReactTyped strings={[question]} typeSpeed={100}/></h3>
       </div>
-      <button id="btn" onClick={handleButtonClick}>
-        Submit
+      <button id="btn" onClick={handleButtonClick} disabled={submitting}>
+        {submitting ? (
+          <>
+            <ClipLoader color="white" loading={true} size={15} />
+            <span style={{ verticalAlign: 'middle', marginLeft: '0.5rem' }}>submitting the video ...</span>
+          </>
+        ) : (
+          'Submit'
+        )}
       </button>
       <ToastContainer />
     </>
