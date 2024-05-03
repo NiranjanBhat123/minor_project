@@ -1,9 +1,15 @@
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
 
+# Access the API key
+API_KEY = os.getenv('API_KEY')
 
 def getRating(prompt):
-    genai.configure(api_key="AIzaSyDo0JglKnL7Nv_nyzQsD5moxUwEOD93sM8")
+    load_dotenv()
+    API_KEY = os.getenv('API_KEY')
+    genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel('gemini-pro')
     chat = model.start_chat(history=[])
     chat.send_message(prompt)

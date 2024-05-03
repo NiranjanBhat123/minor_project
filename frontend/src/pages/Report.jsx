@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/Report.css';
 
+
 const preprocessText = (text) => {
   return text.split('\n\n').map((paragraph, index) => {
     if ((paragraph.startsWith('**') && paragraph.endsWith('**'))) {
@@ -21,6 +22,8 @@ const preprocessText = (text) => {
 
 
 
+
+
 const Report = () => {
   const { state } = useLocation();
   const { response } = state;
@@ -30,7 +33,7 @@ const Report = () => {
   let ratingText = ''
   if (rating <= 5) {
     ratingColor = 'red';
-    raringText = 'Poor'
+    ratingText = 'Poor'
   } else if (rating <= 7) {
     ratingColor = 'orange';
     ratingText = 'Average'
@@ -51,6 +54,7 @@ const Report = () => {
             
               <span style={{fontSize:"3rem"}}>{rating}/</span>10
             </div>
+           
           </div>
           <div className="report-section feedback-section">
             <h3>Feedback:</h3>
