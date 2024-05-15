@@ -66,7 +66,7 @@ const Report = () => {
           </div>
           <div className="report-section model-answer-section">
             <h3>Model Answer:</h3>
-            {preprocessText(response.model_anwer)}
+            {preprocessText(response.model_answer)}
           </div>
         </div>
       ) : (

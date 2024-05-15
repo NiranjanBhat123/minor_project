@@ -22,11 +22,12 @@ def index_view(request):
                     video_path = f.name
                 
                 words = extract_text_from_video(video_path)
+                print(words)
                 rating = getRating(f" just give the candidate a rating out of 10 ,just give the number. for the question -> {question} the interview candidate answered {words}")
                 feedback = getRating(f"addessing the candidate as 'you', as an interviewer just give feedback in 100 words on what candidate can imporve in his answer for this particular question -> {question} and the answer of the candidate was {words}")
                 strengths = getRating(f"addessing the candidate as 'you' ,as an interviewer just give feedback in 50 words on what were the good points mentioned by the candidate for this particular question  question -> {question} and the answer of the candidate was -> {words}")
                 model_answer = getRating(f"summerize this in 100 words , use bold where necessary keep it short and consise, if you are using points, use proper regular expression around it so that its easier to process the text later {question.answer}")
-                return JsonResponse({"rating": rating,"feedback":feedback,"strengths":strengths,"model_anwer":model_answer})
+                return JsonResponse({"rating": rating,"feedback":feedback,"strengths":strengths,"model_answer":model_answer})
             else:
                 return JsonResponse({"message": "No video received"}, status=400)
         except Exception as e:
