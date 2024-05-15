@@ -1,4 +1,4 @@
-Online Interview Preparation Platform
+# techReady.ai
 
 Welcome to our online interview preparation platform! This project leverages Natural Language Processing (NLP) techniques and Google's GenAI for providing feedback to users. With a focus on enhancing your interview skills, our platform offers various features such as multiple topic choices, webcam recording of interviews, personalized feedback on strengths, detailed reports, and model answers.
 
