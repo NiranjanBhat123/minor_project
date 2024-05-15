@@ -20,7 +20,7 @@ Welcome to our online interview preparation platform! This project leverages Nat
 # Installation and Setup
 
 Prerequisites
-Python (with venv support)
-Node.js and npm
-Git
+* Python (with venv support)
+* Node.js and npm
+* Git
 
