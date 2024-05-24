@@ -7,8 +7,10 @@
 }
 
 .home-container .content {
+    margin-top: -3rem;
     display: flex;
     align-items: center;
+    margin-bottom: -13rem;
 }
 
 .home-container .content h1 {
@@ -18,11 +20,12 @@
 }
 
 .home-container .content img {
-    margin-top: -4rem;
-    margin-left: 20px;
+    margin-top: 4rem;
+    margin-left: 30px;
     height: calc(35rem - 10%);
     width: 35rem;
     clip-path: inset(10% 0 10% 0);
+    
 }
 
 .home-container button {

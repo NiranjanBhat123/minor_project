@@ -23,3 +23,4 @@ def extract_text_from_video(video_path):
         return "some error"
 
 
+

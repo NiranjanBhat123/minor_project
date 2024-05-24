@@ -6,7 +6,13 @@ import tempfile
 from .models import *
 import random
 from .getRating import getRating
-import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
+from django.contrib.auth.hashers import make_password, check_password
+from django.utils import timezone
+from django.core import serializers
+from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
+
 
 @api_view(['POST'])
 def index_view(request):
@@ -36,14 +42,16 @@ def index_view(request):
 
                 def get_model_answer(question):
                     return getRating(f"summerize this in 100 words, use bold where necessary keep it short and consise, if you are using points, use proper regular expression around it so that its easier to process the text later {question.answer}")
-
+                def get_answer_future(words):
+                     return getRating(f"just add punctuations in suitable places to this plain text to be meaningful {words}")
                 
-                with concurrent.futures.ThreadPoolExecutor() as executor:
+                with ThreadPoolExecutor() as executor:
                     futures = [
                         executor.submit(get_rating, question, words),
                         executor.submit(get_feedback, question, words),
                         executor.submit(get_strengths, question, words),
-                        executor.submit(get_model_answer, question)
+                        executor.submit(get_model_answer, question),
+                        executor.submit(get_answer_future,words)
                     ]
 
                     results = [future.result() for future in futures]
@@ -52,7 +60,8 @@ def index_view(request):
                     "rating": results[0],
                     "feedback": results[1],
                     "strengths": results[2],
-                    "model_answer": results[3]
+                    "model_answer": results[3],
+                    "user_answer":results[4]
                 })
             else:
                 return JsonResponse({"message": "No video received"}, status=400)
@@ -62,8 +71,6 @@ def index_view(request):
 
 
 
-
-       
 def get_random_question(request,card_name):
     if request.method == 'GET':
         card_name = card_name
@@ -86,3 +93,156 @@ def get_random_question(request,card_name):
     else:
         return JsonResponse({'message': 'Method not allowed'}, status=405)
     
+
+@api_view(['POST'])
+def signup(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if the email is already taken
+        print(username,email,password)
+        if Users.objects.filter(email=email).exists():
+            return JsonResponse({'message': 'Email is already taken'}, status=400)
+
+        # Create the user
+        hashed_password = make_password(password)  # Hash the password
+        user = Users(email=email, username=username, password=hashed_password)
+        user.save()
+
+        return JsonResponse({'message': 'User created successfully'}, status=201)
+
+    return JsonResponse({'message': 'Method not allowed'}, status=405)
+
+
+@api_view(['POST'])
+def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = Users.objects.get(email=email)
+            if check_password(password, user.password):
+                # Passwords match, user is authenticated
+                return JsonResponse({
+                    'message': 'Login successful',
+                    'email': user.email,
+                    'username': user.username
+                }, status=200)
+            else:
+                # Passwords do not match
+                return JsonResponse({'message': 'Invalid email or password'}, status=401)
+        except Users.DoesNotExist:
+            # User does not exist
+            return JsonResponse({'message': 'user does not exist'}, status=401)
+
+    return JsonResponse({'message': 'Method not allowed'}, status=405)
+
+
+
+@api_view(['POST'])
+def save_report(request):
+    #print("hi")
+    if request.method == 'POST':
+        user_email = request.data.get('email')
+        user = Users.objects.get(email=user_email)
+        
+        rating = request.data.get('rating')
+        user_answer = request.data.get('user_answer')
+        feedback = request.data.get('feedback')
+        question_id = request.data.get('question_id')
+
+        print(user_email)
+
+        try:
+            question = Question.objects.get(question_id=question_id)
+        except Question.DoesNotExist:
+            return Response({'message': 'Question not found'}, status=404)
+
+        report = Report(
+            user=user,
+            question=question,
+            rating=rating,
+            user_answer=user_answer,
+            feedback=feedback,
+            submit_time=timezone.now()
+        )
+        report.save()
+
+        return Response({'message': 'Report saved successfully'}, status=201)
+
+    return Response({'message': 'Method not allowed'}, status=405)
+
+
+
+
+
+def profile(request, email):
+    if request.method == "GET":
+        try:
+            # Custom SQL query to join all tables
+            query = """
+                SELECT 
+                    my_app_users.email,
+                    my_app_users.username,
+                    my_app_genre.name AS genre_name,
+                    my_app_question.question,
+                    my_app_report.rating,
+                    my_app_report.user_answer,
+                    my_app_report.feedback,
+                    my_app_report.submit_time,
+                    my_app_report.id
+                FROM 
+                    my_app_report
+                INNER JOIN 
+                    my_app_users ON my_app_report.user_id = my_app_users.email
+                INNER JOIN 
+                    my_app_question ON my_app_report.question_id = my_app_question.question_id
+                INNER JOIN 
+                    my_app_genre ON my_app_question.genre_id = my_app_genre.genre_id
+                WHERE 
+                    my_app_users.email = %s
+            """
+            with connection.cursor() as cursor:
+                cursor.execute(query, [email])
+                # Fetch all results from the cursor
+                rows = cursor.fetchall()
+            
+            # Convert the results into a list of dictionaries
+            data = []
+            for row in rows:
+                result = {
+                    
+                    "email": row[0],
+                    "username": row[1],
+                    "genre_name": row[2],
+                    "question": row[3],
+                    "rating": row[4],
+                    "user_answer": row[5],
+                    "feedback": row[6],
+                    "submit_time": row[7].strftime("%Y-%m-%d %H:%M:%S"),
+                    "id":row[8] 
+                    }
+                data.append(result)
+            
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+        
+        
+        
+@csrf_exempt
+def delete_report(request, report_id):
+    if request.method == "DELETE":
+        try:
+            report = Report.objects.get(id=report_id)
+            report.delete()
+            return JsonResponse({"message": "Report deleted successfully"}, status=200)
+        except Report.DoesNotExist:
+            return JsonResponse({"error": "Report not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
