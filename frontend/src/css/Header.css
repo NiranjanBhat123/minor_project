@@ -1,5 +1,4 @@
 nav {
-    
     padding: 2rem;
     display: flex;
     justify-content: space-between;
@@ -40,10 +39,12 @@ nav {
 .header_container li:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Example shadow */
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .header_container #icon{
     font-weight: bold;
     margin-right: .2rem;
 }
+
 

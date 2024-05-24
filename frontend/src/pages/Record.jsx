@@ -97,21 +97,42 @@ export default function App() {
           throw new Error('No recorded video found');
         }
         setSubmitting(true);
-        console.log("video is present !")
-
+  
         const formData = new FormData();
-
-
         formData.append('video', recordedBlob);
-        formData.append('question_id',question_id);
-        console.log(question_id);
+        formData.append('question_id', question_id);
+  
         const response = await fetch('http://127.0.0.1:8000/my_app/', {
           method: 'POST',
           body: formData,
         });
+  
         if (response.ok) {
-          navigate('/report', { state: { response: await response.json() } });
+          console.log("resp ok!!!!!!!!!!!")
+          const responseData = await response.json();
+          console.log("Response data:", responseData); // Check the response data
+  
+          // Extract relevant data and pass it to the state
+          const extractedData = {
+            rating: responseData.rating,
+            user_answer: responseData.user_answer,
+            feedback: responseData.feedback,
+            strengths: responseData.strengths,
+            model_answer: responseData.model_answer,
+            question_id: question_id // If needed
+          };
+  
+          // Navigate to report page with extracted data
+          navigate('/report', {state: { 
+            rating: responseData.rating,
+            user_answer: responseData.user_answer,
+            feedback: responseData.feedback,
+            strengths: responseData.strengths,
+            model_answer: responseData.model_answer,
+            question_id: question_id
+          }});
         } else {
+          console.log("resp notok!!!!!!!!!!!")
           throw new Error('Internal server error');
         }
       } catch (error) {
@@ -119,6 +140,7 @@ export default function App() {
       }
     }
   };
+  
 
 
 

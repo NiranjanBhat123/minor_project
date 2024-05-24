@@ -83,9 +83,9 @@ CORS_ALLOWED_ORIGINS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'minorProject', 
+        'NAME': 'minorproject', 
         'USER': 'root',
-        'PASSWORD': '8484',
+        'PASSWORD': 'icvbhat555' ,
         'HOST': 'localhost', 
         'PORT': '3306',
     }
