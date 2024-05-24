@@ -17,9 +17,10 @@ def extract_text_from_video(video_path):
         return text
     except sr.UnknownValueError:
         print("Could not understand audio")
-        return "candidate failed to answer"
+        return "candidate failed to answer the question"
     except sr.RequestError as e:
         print(f"Error: {e}")
-        return ""
+        return "some error"
+
 
 

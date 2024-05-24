@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
 
+
 @api_view(['POST'])
 def index_view(request):
     if request.method == "POST":
@@ -26,33 +27,46 @@ def index_view(request):
                 words = extract_text_from_video(video_path)
                 print(words)
 
-                # Using ThreadPoolExecutor for parallel execution
-                with ThreadPoolExecutor(max_workers=5) as executor:
-                    user_answer_future = executor.submit(getRating, f"just add punctuations in suitable places to this plain text look meaningful->{words}")
-                    rating_future = executor.submit(getRating, f" just give the candidate a rating out of 10 ,just give the number. for the question -> {question} the interview candidate answered {words}")
-                    feedback_future = executor.submit(getRating, f"addessing the candidate as 'you', as an interviewer just give feedback in 100 words on what candidate can imporve in his answer for this particular question -> {question} and the answer of the candidate was {words}")
-                    strengths_future = executor.submit(getRating, f"addessing the candidate as 'you' ,as an interviewer just give feedback in 50 words on what were the good points mentioned by the candidate for this particular question  question -> {question} and the answer of the candidate was -> {words}")
-                    model_answer_future = executor.submit(getRating, f"summerize this in 100 words , use bold where necessary keep it short and consise, if you are using points, use proper regular expression around it so that its easier to process the text later {question.answer}")
+                # Define functions to fetch rating, feedback, strengths, and model answer
+                def get_rating(question, words):
+                    return getRating(f" just give the candidate a rating out of 10,just give the number. for the question -> {question} the interview candidate answered {words}")
+
+                def get_feedback(question, words):
+                    return getRating(f"addessing the candidate as 'you', as an interviewer just give feedback in 100 words on what candidate can imporve in his answer for this particular question -> {question}.  the feedback based on this answer ->  {words}. if the candidate failed to answer, then give the feedback accordingly saying he must learn the concepts before taking an interview")
+
+                def get_strengths(question, words):
+                    return getRating(f"addessing the candidate as 'you',as an interviewer just give feedback in 50 words on what were the good points mentioned by the candidate for this particular question. if candidate has not answered anything, give a harsh feedback.  question is -> {question} and the answer of the candidate was -> {words}")
+
+                def get_model_answer(question):
+                    return getRating(f"summerize this in 100 words, use bold where necessary keep it short and consise, if you are using points, use proper regular expression around it so that its easier to process the text later {question.answer}")
+                def get_answer_future(words):
+                     return getRating(f"just add punctuations in suitable places to this plain text to be meaningful {words}")
                 
-                    # Getting results from futures
-                    user_answer = user_answer_future.result()
-                    print(user_answer)
-                    rating = rating_future.result()
-                    feedback = feedback_future.result()
-                    strengths = strengths_future.result()
-                    model_answer = model_answer_future.result()
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(get_rating, question, words),
+                        executor.submit(get_feedback, question, words),
+                        executor.submit(get_strengths, question, words),
+                        executor.submit(get_model_answer, question),
+                        executor.submit(get_answer_future,words)
+                    ]
 
-                    print(rating)
-                    print(feedback)
-                    print(strengths)
-                    print(model_answer)
+                    results = [future.result() for future in futures]
 
-                return JsonResponse({"user_answer": user_answer,"rating": rating,"feedback":feedback,"strengths":strengths,"model_anwer":model_answer,"question_id":question_id})
+                return JsonResponse({
+                    "rating": results[0],
+                    "feedback": results[1],
+                    "strengths": results[2],
+                    "model_answer": results[3],
+                    "user_answer":results[4]
+                })
             else:
                 return JsonResponse({"message": "No video received"}, status=400)
         except Exception as e:
             print("Error:", e)
             return JsonResponse({"message": "An error occurred"}, status=500)
+
+
 
 def get_random_question(request,card_name):
     if request.method == 'GET':
