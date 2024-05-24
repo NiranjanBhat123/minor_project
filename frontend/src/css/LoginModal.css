@@ -1,0 +1,111 @@
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+
+.form-group input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-content button{
+    cursor: pointer;
+    background: purple;
+    border-radius: .75rem;
+    color: hsl(0, 0%, 100%);
+    margin:auto;
+    margin-top: 1rem;
+    width: 150px;
+    height: 50px;
+    padding: 1rem;
+    font-size: 1rem;
+    box-shadow: none;
+    border: none;
+    font-weight: bold;
+}
+
+.modal-content button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.modal-content .btn:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.link {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.modal-content h2{
+    text-align: center;
+    font-size: 1.75rem;
+}
+
+
+.modal-content p {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}

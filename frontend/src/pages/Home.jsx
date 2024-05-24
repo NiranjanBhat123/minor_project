@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArrowRight, FaDatabase, FaNetworkWired, FaCode, FaObjectGroup, FaTree, FaLaptop } from 'react-icons/fa';
 import Bg from '../assets/Bg.gif';
 import '../css/Home.css';
 import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
 
 export default function Home() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
+
     return (
         <div className="home-container">
             <div className="container">
@@ -13,10 +19,9 @@ export default function Home() {
                     <img src={Bg} alt="" />
                 </div>
 
-                <Link to={'/interview'} style={{ textDecoration: "none", marginTop: "-10rem" }}>
-                    <button>Take an Interview Now <FaArrowRight /></button>
-                </Link>
+                <button onClick={toggleModal}>Take an Interview Now <FaArrowRight /></button>
 
+                <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
                 <div className="promo">
                     <h2>Why Choose techReady.<span id='ai' style={{ color: "purple" }}>ai</span> ?</h2>
                     <div className="card-grid">
