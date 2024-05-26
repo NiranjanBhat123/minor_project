@@ -1,153 +1,220 @@
 .profile-container {
-    
-    padding: 20px;
-  }
-  
-  .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .user-info {
-    
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-icon {
-    font-size: 40px;
-    margin-right: 10px;
-  }
-  
-  .user-name {
-    margin: 0;
-    font-weight: bold;
-  }
-  
-  .user-email {
-    margin: 0;
-    color: #666;
-  }
-  
- .card {
-    padding: 20px;
-    border-radius: 8px 8px 8px 0;
-    transition: box-shadow 0.3s ease;
+
+  padding: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-info {
+
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+.user-name {
+  margin: 0;
+  font-weight: bold;
+}
+
+.user-email {
+  margin: 0;
+  color: #666;
+}
+
+.card {
+  background: #eee;
+  padding: 20px;
+  border-radius: 8px 8px 8px 0;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
 }
 
 .card:hover {
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-.card:nth-child(even) {
-    background-color: #eee;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
 
-  
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #eee;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  
-  .genre {
-    margin: 0;
-    font-weight: bold;
-  }
-  
-  .delete-icon {
-    cursor: pointer;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-title {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-  
-  .grid-container {
-   
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 20px;
-  }
-  
-  .grid-item {
-    background: white;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 15px;
-  }
-  
-  .grid-item p {
-    margin: 0;
-  }
-  
-  .rating {
-    padding: 5px 10px;
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-  }
-  
-  
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #eee;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.genre {
+  margin: 0;
+  font-weight: bold;
+}
+
+.delete-icon {
+  cursor: pointer;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+}
+
+.grid-item {
+  background: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 15px;
+}
+
+.grid-item p {
+  margin: 0;
+}
+
+.rating {
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
 
 
-   
-  
-  .modal {
-    background: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .modal-overlay {
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal-button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-  }
-  
-  .confirm-button {
-    background-color: purple;
-    color: #fff;
-  }
-  
-  .cancel-button {
-    background-color: #ccc;
-    color: #000;
-  }
-  
+
+
+
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.confirm-button {
+  background-color: purple;
+  color: #fff;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #000;
+}
+
+
+.filter-container {
+  display: flex;
+  justify-content: left;
+  margin: 20px 0;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filter-container select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filter-container select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 20px;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.filter-container select {
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-container select:focus {
+  border-color: #7b68ee;
+}
+
+.filter-container select option {
+  padding: 10px;
+}

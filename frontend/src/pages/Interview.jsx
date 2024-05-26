@@ -1,4 +1,4 @@
-import {React,useEffect} from 'react';
+import { React, useEffect } from 'react';
 import '../css/Interview.css';
 import { useNavigate } from 'react-router-dom';
 const Interview = () => {
@@ -17,7 +17,7 @@ const Interview = () => {
   return (
     <div className="interview-container">
       <div className="card">
-     
+
         <h2>Database Management Systems</h2>
         <h3>Topics Covered</h3>
         <ul>

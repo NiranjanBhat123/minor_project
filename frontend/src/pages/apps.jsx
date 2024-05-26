@@ -111,12 +111,11 @@ export default function App() {
       <video
         ref={recordWebcam.webcamRef}
         style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING
+          display: `${recordWebcam.status === CAMERA_STATUS.OPEN ||
+              recordWebcam.status === CAMERA_STATUS.RECORDING
               ? "block"
               : "none"
-          }`
+            }`
         }}
         autoPlay
         muted
@@ -124,9 +123,8 @@ export default function App() {
       <video
         ref={recordWebcam.previewRef}
         style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.PREVIEW ? "block" : "none"
-          }`
+          display: `${recordWebcam.status === CAMERA_STATUS.PREVIEW ? "block" : "none"
+            }`
         }}
         controls
       />

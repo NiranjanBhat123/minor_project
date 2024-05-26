@@ -14,16 +14,16 @@ import Profile from './pages/Profile.jsx';
 function App() {
   return (
     <BrowserRouter>
-    <>
-    <Header/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/interview" element={<ProtectedRoute component={Interview} />} />
-        <Route path="/record" element={<ProtectedRoute component={Record} />} />
-        <Route path="/report" element={<ProtectedRoute component={Report} />} />
-        <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
-      </Routes>
-      <Footer/>
+      <>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/interview" element={<ProtectedRoute component={Interview} />} />
+          <Route path="/record" element={<ProtectedRoute component={Record} />} />
+          <Route path="/report" element={<ProtectedRoute component={Report} />} />
+          <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+        </Routes>
+        <Footer />
       </>
     </BrowserRouter>
   );

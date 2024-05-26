@@ -2,6 +2,7 @@ import tempfile
 import moviepy.editor as mp
 import speech_recognition as sr
 
+
 def extract_text_from_video(video_path):
     video = mp.VideoFileClip(video_path)
     audio = video.audio
@@ -21,6 +22,3 @@ def extract_text_from_video(video_path):
     except sr.RequestError as e:
         print(f"Error: {e}")
         return "some error"
-
-
-

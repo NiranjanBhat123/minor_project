@@ -3,19 +3,21 @@ import { useLocation } from 'react-router-dom';
 import '../css/Report.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaSave } from 'react-icons/fa'; // Import the save icon from React Icons
+import { FaSave } from 'react-icons/fa';
 
 const preprocessText = (text) => {
-  if (!text) return null; // Handle case where text is undefined
+
+  if (!text) return null;
+
   return text.split('\n\n').map((paragraph, index) => {
     if ((paragraph.startsWith('**') && paragraph.endsWith('**'))) {
       return <p key={index}><strong>{paragraph.slice(2, -2)}</strong></p>;
     }
-    else if((paragraph.startsWith('* **') && paragraph.endsWith(':**'))){
+    else if ((paragraph.startsWith('* **') && paragraph.endsWith(':**'))) {
       return <p key={index}><strong>{paragraph.slice(4, -4)}</strong></p>;
-    } 
+    }
     else {
-      return <p style={{textAlign:"justify"}} key={index}>{paragraph}</p>;
+      return <p style={{ textAlign: "justify" }} key={index}>{paragraph}</p>;
     }
   });
 };
@@ -73,7 +75,7 @@ const Report = () => {
       const data = await res.json();
       console.log(data.message);
       toast.success("report saved sucessfully !")
-      setReportSaved(true); // Set reportSaved to true after successfully saving the report
+      setReportSaved(true); 
     } catch (error) {
       console.error('Error saving report:', error.message);
       alert('Failed to save report');
@@ -82,43 +84,38 @@ const Report = () => {
 
   return (
     <div className="report-container">
-      <button 
-        onClick={handleSaveReport}  
+      <button
+        onClick={handleSaveReport}
         id='save_report'
-        style={{ backgroundColor: reportSaved ? 'gray' : 'purple' }} // Change button color if disabled
+        style={{ backgroundColor: reportSaved ? 'gray' : 'purple' }} 
       >
         <FaSave /> Save Report
       </button>
       <h2 className="report-heading">Your Report</h2>
-        <div className="report-data">
-          
-          {/* <div className="report-section feedback-section">
-            <h3>Your answer:</h3>
-            {preprocessText(user_answer)}
-          </div> */}
-          <div className="report-section rating-section">
-            
-            <span style={{ fontSize: '1.5rem', color: `${ratingColor}` }}>{ratingText}</span>
-            
-            <br />
-            <div className="rating-graph" style={{ border: `10px solid ${ratingColor}` }}>
-              <span style={{ fontSize: '3rem' }}>{ratingValue}/</span>10
-            </div>
+      <div className="report-data">
+        <div className="report-section rating-section">
+
+          <span style={{ fontSize: '1.5rem', color: `${ratingColor}` }}>{ratingText}</span>
+
+          <br />
+          <div className="rating-graph" style={{ border: `10px solid ${ratingColor}` }}>
+            <span style={{ fontSize: '3rem' }}>{ratingValue}/</span>10
           </div>
-          <div className="report-section feedback-section">
-            <h3>Feedback:</h3>
-            {preprocessText(feedback)}
-          </div>
-          <div className="report-section strengths-section">
-            <h3>Strengths:</h3>
-            {preprocessText(strengths)}
-          </div>
-          <div className="report-section model-answer-section">
-            <h3>Model Answer:</h3>
-            {preprocessText(model_answer)}
-          </div>
-          <ToastContainer/>
         </div>
+        <div className="report-section feedback-section">
+          <h3>Feedback:</h3>
+          {preprocessText(feedback)}
+        </div>
+        <div className="report-section strengths-section">
+          <h3>Strengths:</h3>
+          {preprocessText(strengths)}
+        </div>
+        <div className="report-section model-answer-section">
+          <h3>Model Answer:</h3>
+          {preprocessText(model_answer)}
+        </div>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

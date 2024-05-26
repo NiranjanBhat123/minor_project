@@ -9,14 +9,14 @@
 
 
 .question {
-    width:30rem;
+    width: 30rem;
     margin-top: -28rem;
     margin-bottom: 6rem;
     margin-left: 6rem;
 }
 
 
-#btn{
+#btn {
     align-self: center;
     cursor: pointer;
     width: 18rem;
@@ -30,5 +30,5 @@
     font-weight: bold;
     background: purple;
     margin-bottom: 1rem;
-    margin-left:18rem;
+    margin-left: 18rem;
 }

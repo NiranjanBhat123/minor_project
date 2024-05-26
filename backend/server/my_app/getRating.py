@@ -1,10 +1,10 @@
 import google.generativeai as genai
 import os
-from dotenv import load_dotenv #type:ignore
+from dotenv import load_dotenv
 
 
-# Access the API key
 API_KEY = os.getenv('API_KEY')
+
 
 def getRating(prompt):
     load_dotenv()

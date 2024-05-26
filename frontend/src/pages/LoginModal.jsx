@@ -44,7 +44,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         throw new Error(data.message || 'Network response was not ok');
       }
 
-      
+
       setShowSignup(false);
       setError('')
     } catch (error) {
@@ -71,7 +71,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       }
 
       localStorage.setItem('user', JSON.stringify(data));
-     
+
       setError('')
       onClose();
       navigate('/interview');
@@ -103,11 +103,11 @@ const LoginModal = ({ isOpen, onClose }) => {
           {error && <div className="error-message">{error}</div>}
           {showSignup ? (
             <form className="form" onSubmit={handleSignup}>
-              <div className="form-group">
+              <div className="form-group" style={{ marginLeft: "-1rem" }}>
                 <label htmlFor="signup-username">Username</label>
                 <input type="text" id="signup-username" name="signup-username" value={username} onChange={(e) => setUsername(e.target.value)} required />
               </div>
-              <div className="form-group">
+              <div className="form-group" style={{ marginLeft: "-1rem" }}>
                 <label htmlFor="signup-email">Email</label>
                 <input type="email" id="signup-email" name="signup-email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
@@ -128,7 +128,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             </form>
           ) : (
             <form className="form" onSubmit={handleLogin}>
-              <div className="form-group">
+              <div className="form-group" style={{ marginLeft: "-1rem" }}>
                 <label htmlFor="login-email">Email</label>
                 <input type="email" id="login-email" name="login-email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>

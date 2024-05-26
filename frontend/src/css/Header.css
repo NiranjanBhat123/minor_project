@@ -8,12 +8,12 @@ nav {
     text-align: center;
 }
 
-#ai{
-    color:purple;
+#ai {
+    color: purple;
 }
 
-.header_container h1{
-    color:black;
+.header_container h1 {
+    color: black;
     font-size: 1.5rem;
 }
 
@@ -26,25 +26,23 @@ nav {
     padding: 0;
 }
 
-.header_container li{
+.header_container li {
     margin-left: 20px;
     width: 4rem;
     height: 1rem;
-    padding:1rem;
+    padding: 1rem;
     background-color: purple;
     color: white;
     border-radius: .5rem;
 }
 
-.header_container li:hover{
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Example shadow */
+.header_container li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     text-decoration: underline;
 }
 
-.header_container #icon{
+.header_container #icon {
     font-weight: bold;
     margin-right: .2rem;
 }
-
-

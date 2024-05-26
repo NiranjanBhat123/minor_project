@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import { useLocation, useNavigate } from 'react-router-dom';
 import VideoRecorder from 'react-video-recorder';
-import {ReactTyped }from "react-typed";
+import { ReactTyped } from "react-typed";
 import { ClipLoader } from 'react-spinners';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -74,18 +74,18 @@ export default function App() {
     try {
       const url = `http://localhost:8000/my_app/api/get-random-question/${cardName}/`;
       const response = await axios.get(url);
-      
+
       if (response.status !== 200) {
         throw new Error('Failed to fetch question from server');
       }
-      
+
       setQuestion(response.data.question);
       setquestion_id(response.data.id);
     } catch (error) {
       toast.error(error.message);
     }
   };
-  
+
 
 
   const handleButtonClick = async () => {
@@ -97,42 +97,44 @@ export default function App() {
           throw new Error('No recorded video found');
         }
         setSubmitting(true);
-  
+
         const formData = new FormData();
         formData.append('video', recordedBlob);
         formData.append('question_id', question_id);
-  
+
         const response = await fetch('http://127.0.0.1:8000/my_app/', {
           method: 'POST',
           body: formData,
         });
-  
+
         if (response.ok) {
-          console.log("resp ok!!!!!!!!!!!")
+
           const responseData = await response.json();
-          console.log("Response data:", responseData); // Check the response data
-  
-          // Extract relevant data and pass it to the state
+
+
+
           const extractedData = {
             rating: responseData.rating,
             user_answer: responseData.user_answer,
             feedback: responseData.feedback,
             strengths: responseData.strengths,
             model_answer: responseData.model_answer,
-            question_id: question_id // If needed
-          };
-  
-          // Navigate to report page with extracted data
-          navigate('/report', {state: { 
-            rating: responseData.rating,
-            user_answer: responseData.user_answer,
-            feedback: responseData.feedback,
-            strengths: responseData.strengths,
-            model_answer: responseData.model_answer,
             question_id: question_id
-          }});
+          };
+
+
+          navigate('/report', {
+            state: {
+              rating: responseData.rating,
+              user_answer: responseData.user_answer,
+              feedback: responseData.feedback,
+              strengths: responseData.strengths,
+              model_answer: responseData.model_answer,
+              question_id: question_id
+            }
+          });
         } else {
-          console.log("resp notok!!!!!!!!!!!")
+
           throw new Error('Internal server error');
         }
       } catch (error) {
@@ -140,7 +142,7 @@ export default function App() {
       }
     }
   };
-  
+
 
 
 
@@ -164,7 +166,7 @@ export default function App() {
         />
       </div>
       <div className="question">
-        <h3><ReactTyped strings={[question]} typeSpeed={100}/></h3>
+        <h3><ReactTyped strings={[question]} typeSpeed={100} /></h3>
       </div>
       <button id="btn" onClick={handleButtonClick} disabled={submitting}>
         {submitting ? (
