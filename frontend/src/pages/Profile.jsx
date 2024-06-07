@@ -6,13 +6,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/Profile.css';
 
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
+
 export default function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [reportToDelete, setReportToDelete] = useState(null);
-  const [timeFilter, setTimeFilter] = useState('all');
+  const [timeFilter, setTimeFilter] = useState('latest');
   const [genreFilter, setGenreFilter] = useState('all');
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -95,21 +103,27 @@ export default function Profile() {
     applyFilter(value, name);
   };
 
-  const applyFilter = (value, filterType) => {
+  const applyFilter = () => {
     let filtered = profileData;
 
-    if (filterType === 'timeFilter') {
-      if (value === 'latest') {
-        filtered = [...profileData].sort((a, b) => new Date(b.submit_time) - new Date(a.submit_time));
-      } else if (value === 'earliest') {
-        filtered = [...profileData].sort((a, b) => new Date(a.submit_time) - new Date(b.submit_time));
-      }
-    } else if (filterType === 'genreFilter' && value !== 'all') {
-      filtered = profileData.filter(report => report.genre_name === value);
+
+    if (timeFilter === 'latest') {
+      filtered = filtered.sort((a, b) => new Date(b.submit_time) - new Date(a.submit_time));
+    } else if (timeFilter === 'earliest') {
+      filtered = filtered.sort((a, b) => new Date(a.submit_time) - new Date(b.submit_time));
+    }
+
+
+    if (genreFilter !== 'all') {
+      filtered = filtered.filter(report => report.genre_name === genreFilter);
     }
 
     setFilteredData(filtered);
   };
+
+  useEffect(() => {
+    applyFilter();
+  }, [timeFilter, genreFilter]);
 
   return (
     <div className="profile-container">
@@ -124,20 +138,55 @@ export default function Profile() {
       </div>
       {error && <div className="error-message">{error}</div>}
       <div className="filter-container">
-        <label htmlFor="timeFilter">Filter by Timeline: </label>
-        <select name="timeFilter" id="timeFilter" value={timeFilter} onChange={handleFilterChange}>
-          <option value="all">All</option>
-          <option value="latest">Latest</option>
-          <option value="earliest">Earliest</option>
-        </select>
+        
 
-        <label htmlFor="genreFilter"> Filter by Genre: </label>
+        <Box sx={{ width: 250 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">time</InputLabel>
+            <Select
+              name='timeFilter'
+              labelId="demo-simple-select-label"
+              id="timeFilter"
+              value={timeFilter}
+              label="age"
+              onChange={handleFilterChange}
+            >
+              
+              <MenuItem value="earliest">earliest</MenuItem>
+              <MenuItem value="latest">latest</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+
+
+
+        <Box marginLeft={"10rem"} sx={{ width: 300 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+            <Select
+              name='genreFilter'
+              labelId="demo-simple-select-label"
+              id="genreFilter"
+              value={genreFilter}
+              label="genreFilter"
+              onChange={handleFilterChange}
+            >
+              <MenuItem value="all">all</MenuItem>
+              {genres.map((genre, index) => (
+                <MenuItem key={index} value={genre}>{genre}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        {/* <label htmlFor="genreFilter"> Filter by Genre: </label>
         <select name="genreFilter" id="genreFilter" value={genreFilter} onChange={handleFilterChange}>
           <option value="all">All</option>
           {genres.map((genre, index) => (
             <option key={index} value={genre}>{genre}</option>
           ))}
-        </select>
+        </select> */}
       </div>
       <div className="profile-details">
         <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Your Reports</h1>
@@ -193,4 +242,3 @@ export default function Profile() {
     </div>
   );
 }
-

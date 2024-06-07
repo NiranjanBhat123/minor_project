@@ -46,7 +46,6 @@ export default function App() {
       <h1>2.react-video-recorder</h1>
       <VideoRecorder
         onRecordingComplete={(videoBlob) => {
-          // Do something with the video...
           console.log("videoBlob", videoBlob);
         }}
       />

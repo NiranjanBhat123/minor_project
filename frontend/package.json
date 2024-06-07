@@ -15,6 +15,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.19",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "react": "^18.3.1",
@@ -30,7 +32,8 @@
     "react-type-animation": "^3.2.0",
     "react-typed": "^2.0.12",
     "react-video-recorder": "^3.19.4",
-    "spinners": "^1.2.2"
+    "spinners": "^1.2.2",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -26,7 +26,7 @@ const Report = () => {
   const { state } = useLocation();
   const { rating, user_answer, feedback, strengths, model_answer, question_id } = state;
 
-  const [reportSaved, setReportSaved] = useState(false); // State variable to track if report has been saved
+  const [reportSaved, setReportSaved] = useState(false); 
 
   const user = JSON.parse(localStorage.getItem('user'));
   const userEmail = user ? user.email : '';
