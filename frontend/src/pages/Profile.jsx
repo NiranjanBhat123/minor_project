@@ -134,6 +134,7 @@ export default function Profile() {
             <h3 className="user-name">{user.username}</h3>
             <h3 className="user-email">{user.email}</h3>
           </div>
+          
         </div>
       </div>
       {error && <div className="error-message">{error}</div>}
