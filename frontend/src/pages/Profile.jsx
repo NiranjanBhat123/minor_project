@@ -65,6 +65,9 @@ export default function Profile() {
     }
   }, []);
 
+
+
+
   const openModal = (reportId) => {
     setReportToDelete(reportId);
     setModalIsOpen(true);
@@ -107,9 +110,9 @@ export default function Profile() {
     let filtered = profileData;
 
 
-    if (timeFilter === 'latest') {
+    if (timeFilter === 'earliest') {
       filtered = filtered.sort((a, b) => new Date(b.submit_time) - new Date(a.submit_time));
-    } else if (timeFilter === 'earliest') {
+    } else if (timeFilter === 'latest') {
       filtered = filtered.sort((a, b) => new Date(a.submit_time) - new Date(b.submit_time));
     }
 
@@ -125,6 +128,10 @@ export default function Profile() {
     applyFilter();
   }, [timeFilter, genreFilter]);
 
+
+
+
+
   return (
     <div className="profile-container">
       <div className="profile-header">
@@ -134,12 +141,12 @@ export default function Profile() {
             <h3 className="user-name">{user.username}</h3>
             <h3 className="user-email">{user.email}</h3>
           </div>
-          
+
         </div>
       </div>
       {error && <div className="error-message">{error}</div>}
       <div className="filter-container">
-        
+
 
         <Box sx={{ width: 250 }}>
           <FormControl fullWidth>
@@ -152,7 +159,7 @@ export default function Profile() {
               label="age"
               onChange={handleFilterChange}
             >
-              
+
               <MenuItem value="earliest">earliest</MenuItem>
               <MenuItem value="latest">latest</MenuItem>
             </Select>
@@ -181,53 +188,51 @@ export default function Profile() {
           </FormControl>
         </Box>
 
-        {/* <label htmlFor="genreFilter"> Filter by Genre: </label>
-        <select name="genreFilter" id="genreFilter" value={genreFilter} onChange={handleFilterChange}>
-          <option value="all">All</option>
-          {genres.map((genre, index) => (
-            <option key={index} value={genre}>{genre}</option>
-          ))}
-        </select> */}
+
       </div>
+
       <div className="profile-details">
-        <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Your Reports</h1>
         {filteredData.length > 0 ? (
-          filteredData.map((report, index) => (
-            <div key={index} className="card">
-              <div className="card-header">
-                <p className="genre">{report.genre_name}</p>
-                <FaTrash className="delete-icon" onClick={() => openModal(report.id)} />
-              </div>
-              <div className="card-body">
-                <div className="grid-container">
-                  <div className="grid-item">
-                    <p style={{ color: "purple" }}><strong>Question:</strong></p>
-                    <p>{report.question}</p>
-                  </div>
-                  <div className="grid-item">
-                    <p style={{ color: "purple" }}><strong>Rating:</strong></p>
-                    <p className="rating" style={{ color: 'black' }}>{report.rating}/10</p>
-                  </div>
-                  <div className="grid-item">
-                    <p style={{ color: "purple" }}><strong>User Answer:</strong></p>
-                    <p>{report.user_answer}</p>
-                  </div>
-                  <div className="grid-item">
-                    <p style={{ color: "purple" }}><strong>Feedback:</strong></p>
-                    <p>{report.feedback}</p>
-                  </div>
-                  <div className="grid-item">
-                    <p style={{ color: "purple" }}><strong>Date: </strong><span style={{ color: "black" }}>{formatDate(report.submit_time)}</span> </p>
+          <>
+            <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Your Reports</h1>
+            {filteredData.map((report, index) => (
+              <div key={index} className="card">
+                <div className="card-header">
+                  <p className="genre">{report.genre_name}</p>
+                  <FaTrash className="delete-icon" onClick={() => openModal(report.id)} />
+                </div>
+                <div className="card-body">
+                  <div className="grid-container">
+                    <div className="grid-item">
+                      <p style={{ color: "purple" }}><strong>Question:</strong></p>
+                      <p>{report.question}</p>
+                    </div>
+                    <div className="grid-item">
+                      <p style={{ color: "purple" }}><strong>Rating:</strong></p>
+                      <p className="rating" style={{ color: 'black' }}>{report.rating}/10</p>
+                    </div>
+                    <div className="grid-item">
+                      <p style={{ color: "purple" }}><strong>User Answer:</strong></p>
+                      <p>{report.user_answer}</p>
+                    </div>
+                    <div className="grid-item">
+                      <p style={{ color: "purple" }}><strong>Feedback:</strong></p>
+                      <p>{report.feedback}</p>
+                    </div>
+                    <div className="grid-item">
+                      <p style={{ color: "purple" }}><strong>Date: </strong><span style={{ color: "black" }}>{formatDate(report.submit_time)}</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))}
+          </>
         ) : (
           <h2 style={{ textAlign: "center" }}>No reports yet!</h2>
         )}
         <ToastContainer />
       </div>
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -243,3 +248,6 @@ export default function Profile() {
     </div>
   );
 }
+
+
+

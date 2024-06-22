@@ -196,7 +196,7 @@ def profile(request, email):
                 rows = cursor.fetchall()
 
             data = []
-            for row in rows:
+            for row in reversed(rows):
                 result = {
 
                     "email": row[0],
