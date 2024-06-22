@@ -17,7 +17,7 @@ Features
 * Speech Recognition Model: The system incorporates speech recognition technology to transcribe and analyze the words spoken by candidates during interviews. This allows for automated evaluation of communication skills and content comprehension.
 * Gemini API Integration: The system integrates with the Gemini API to generate personalized reports for candidates based on their interview performance. The reports include ratings, feedback, strengths, and areas for improvement, providing valuable insights for candidates to enhance their skills.
 Getting Started
-* Using ThreadPoolExecutor, I achieved a 400% performance improvement in the API by parallelizing task execution.
+* Using ThreadPoolExecutor,achieved a 400% performance improvement in the API by parallelizing task execution.
 To run the Interview Evaluation System locally, follow these steps:
 
 Clone the repository to your local machine.
